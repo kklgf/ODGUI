@@ -3,7 +3,7 @@ Object Detection Guided User Interface
 
 
 # Harmonogram:
-1. 10 III - Zatwierdzenie tematów i harmonogram prac
+###### 1. 10 III - Zatwierdzenie tematów i harmonogram prac
   - Patryk:
     - [x] Przygotowanie repozytorium i schematu harmonogramu.
     - [ ] Opis swojego harmonogramu prac.
@@ -11,7 +11,7 @@ Object Detection Guided User Interface
   - Mateusz:
     - [ ] Opis swojego harmonogramu prac.
     
-2. 24 III - Zarys systemu
+###### 2. 24 III - Zarys systemu
   - Patryk:
     - [ ] Wstępna implementacja modułu odpowiedzialnego za detekcje. 
       - [ ] Schemat interfejsów klas obsługujących modele sieci neuronowych.
@@ -23,7 +23,7 @@ Object Detection Guided User Interface
   - Mateusz:
     - [ ]
 
-3. 7 IV - Przedstawienie postępów, problemów, ciekawostek
+###### 3. 7 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
     - [ ] Przetestowanie działania modelu.
       - [ ] Weryfikacja, czy zaimplementowane metody działają zgodnie z oczekiwaniami.
@@ -35,7 +35,7 @@ Object Detection Guided User Interface
   - Mateusz:
     - [ ]
 
-4. 28 IV - Przedstawienie postępów, problemów, ciekawostek
+###### 4. 28 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
     - [ ] Implementacja dodatkowych modeli detekcji.
       - [ ] Dodanie kolejnych modeli sieci neuronowych.
@@ -45,7 +45,7 @@ Object Detection Guided User Interface
   - Mateusz:
     - [ ]
 
-5. 12 V - Prezentacja "gotowego" systemu
+###### 5. 12 V - Prezentacja "gotowego" systemu
   - Patryk:
     - [ ] Weryfikacja poprawności działania systemu pod kątem działania modułu detekcji.
       - [ ] Weryfikacja prztwarzania danych o obrazach.
@@ -55,7 +55,7 @@ Object Detection Guided User Interface
   - Mateusz:
     - [ ]
 
-6. 26 V - Oddanie projektu, podsumowanie
+###### 6. 26 V - Oddanie projektu, podsumowanie
   - Patryk:
     - [ ] Zastosowanie uwag otrzymacyh podczas wstępnej prezentacji rozwiązania.
     
