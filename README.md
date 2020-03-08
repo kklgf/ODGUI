@@ -21,7 +21,10 @@ Object Detection Guided User Interface
       - [ ] Implementacja obsługujących go metod.
       
   - Mateusz:
-    - [ ]
+    - [ ] Wstępna implementacja moduł odpowiedzialnego za import obrazów.
+      - [ ] Schemat interfejsów klas obsługujących import
+    - [ ] Przygotowanie GUI
+    - [ ] Implementacja modułu importującego obrazy z ścieżki
 
 ###### 3. 7 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
@@ -33,7 +36,9 @@ Object Detection Guided User Interface
       - [ ] Weryfikacja poprawności zrealizowanej integracji.
       
   - Mateusz:
-    - [ ]
+    - [ ] Implementacja modułu importującego obraz z kamery
+      - [ ] Przetwarzenie obrazu z kamery do odpowiedniej rozdzielczości i częstości odświeżania
+      - [ ] Weryfikacja poprawności importu
 
 ###### 4. 28 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
@@ -43,7 +48,11 @@ Object Detection Guided User Interface
       - [ ] Dodanie systemu przetwarzania obrazu dla każdego modelu.
       
   - Mateusz:
-    - [ ]
+    - [ ] Implementacja modułu importującego obrazy z adresu internetowego
+      - [ ] Przeszukiwanie strony internetowej w poszukiwanie obrazów 
+      - [ ] Przekształcenie obrazów do odpowiedniej rozdzialczości
+      - [ ] Weryfikacja poprawności importu
+      - [ ] Integracja z GUI
 
 ###### 5. 12 V - Prezentacja "gotowego" systemu
   - Patryk:
@@ -53,11 +62,14 @@ Object Detection Guided User Interface
       - [ ] Weryfikacja działania integralności wszystkich modeli z GUI.
       
   - Mateusz:
-    - [ ]
+    - [ ] Weryfikacja poprawności działania systemu pod kątem działania modułu importu.
+      - [ ] Weryfikacjia działania importu z ścieżki, kamery, adresu internetowego
+      - [ ] Weryfikacja integralności wszystkich modułów importu z GUI
+    
 
 ###### 6. 26 V - Oddanie projektu, podsumowanie
   - Patryk:
     - [ ] Zastosowanie uwag otrzymacyh podczas wstępnej prezentacji rozwiązania.
     
   - Mateusz:
-    - [ ]
+    - [ ] Zastosowanie uwag otrzymacyh podczas wstępnej prezentacji rozwiązania.
