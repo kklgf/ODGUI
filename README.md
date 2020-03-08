@@ -6,10 +6,11 @@ Object Detection Guided User Interface
 ###### 1. 10 III - Zatwierdzenie tematów i harmonogram prac
   - Patryk:
     - [x] Przygotowanie repozytorium i schematu harmonogramu.
-    - [ ] Opis swojego harmonogramu prac.
+    - [x] Opis swojego harmonogramu prac.
     
   - Mateusz:
-    - [ ] Opis swojego harmonogramu prac.
+    - [x] Opis swojego harmonogramu prac.
+    - [x] Wydruk harmonogramu.
     
 ###### 2. 24 III - Zarys systemu
   - Patryk:
