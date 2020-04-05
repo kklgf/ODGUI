@@ -1,6 +1,17 @@
 # ODGUI
 Object Detection Guided User Interface
 
+# Środowisko
+Środowisko można zbudować wykorzystując plik environment.yml.
+Polecenie `conda env create -f environment.yml` stworzy nowe środowiski o nazwie ODGUI.
+Wszystkie zależności można podejrzeć w pliku environment.yml.
+
+# Przydatne strony
+Zbiór przydatnych stron, z których korzystano:
+- https://www.edureka.co/blog/tensorflow-object-detection-tutorial/
+- https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
+- https://stackoverflow.com/questions/56586304/how-to-use-tensorflows-object-detection-model-zoo-with-pretrained-models-but-mis
+- https://github.com/tensorflow/models/issues/4450
 
 # Harmonogram:
 ###### 1. 10 III - Zatwierdzenie tematów i harmonogram prac
