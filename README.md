@@ -14,12 +14,12 @@ Object Detection Guided User Interface
     
 ###### 2. 24 III - Zarys systemu
   - Patryk:
-    - [ ] Wstępna implementacja modułu odpowiedzialnego za detekcje. 
-      - [ ] Schemat interfejsów klas obsługujących modele sieci neuronowych.
-      - [ ] Stworzenie zarysu biblioteki funkcji do przetwarzania obrazu pod kąte sieci neuronowych.
-    - [ ] Implementacja gotowego modelu detekcji.
-      - [ ] Przygotowanie modelu wraz z wagami.
-      - [ ] Implementacja obsługujących go metod.
+    - [x] Wstępna implementacja modułu odpowiedzialnego za detekcje. 
+      - [x] Schemat interfejsów klas obsługujących modele sieci neuronowych.
+      - [x] Stworzenie zarysu biblioteki funkcji do przetwarzania obrazu pod kąte sieci neuronowych.
+    - [x] Implementacja gotowego modelu detekcji.
+      - [x] Przygotowanie modelu wraz z wagami.
+      - [x] Implementacja obsługujących go metod.
       
   - Mateusz:
     - [ ] Wstępna implementacja moduł odpowiedzialnego za import obrazów.
@@ -29,9 +29,9 @@ Object Detection Guided User Interface
 
 ###### 3. 7 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
-    - [ ] Przetestowanie działania modelu.
-      - [ ] Weryfikacja, czy zaimplementowane metody działają zgodnie z oczekiwaniami.
-      - [ ] Weryfikacja poprawności detekcji.
+    - [x] Przetestowanie działania modelu.
+      - [x] Weryfikacja, czy zaimplementowane metody działają zgodnie z oczekiwaniami.
+      - [x] Weryfikacja poprawności detekcji.
     - [ ] Integracja z modułem odpowiedzialnym za GUI.
       - [ ] Dostosowanie przygotowanego modułu do uruchomienia z poziomu GUI.
       - [ ] Weryfikacja poprawności zrealizowanej integracji.

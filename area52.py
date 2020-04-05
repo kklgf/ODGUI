@@ -37,7 +37,7 @@ NUM_CLASSES = 90
 IMAGE_SIZE = (1200, 900)
 
 ###################################Tensorflow/models/research/object_detection/data/mscoco_label_map.pbtxt
-
+# https://stackoverflow.com/questions/56586304/how-to-use-tensorflows-object-detection-model-zoo-with-pretrained-models-but-mis
 import tensorflow as tf
 import cv2
 import os
