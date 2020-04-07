@@ -35,7 +35,7 @@ Zbiór przydatnych stron, z których korzystano:
   - Mateusz:
     - [ ] Wstępna implementacja moduł odpowiedzialnego za import obrazów.
       - [ ] Schemat interfejsów klas obsługujących import
-    - [ ] Przygotowanie GUI
+    - [x] Przygotowanie GUI
     - [ ] Implementacja modułu importującego obrazy z ścieżki
 
 ###### 3. 7 IV - Przedstawienie postępów, problemów, ciekawostek
