@@ -10,9 +10,9 @@ class Model:
 
     def load_inference_graph(self):
         path = os.path.join(os.getcwd(),
-                            self.config['LOKAL_FROZEN'],
-                            self.config['MODEL_NAME'],
-                            'frozen_inference_graph.pb')
+                            self.config['model']['path'],
+                            self.config['model']['name'],
+                            self.config['model']['file'])
         self.graph = get_frozen_graph(path)
 
     def create_session(self):

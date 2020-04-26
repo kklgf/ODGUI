@@ -1,0 +1,24 @@
+#MODEL_NAME: 'ssd_mobilenet_v1_coco_2018_01_28',
+## MODEL_FILE: MODEL_NAME + '.tar.gz',
+#LOKAL_FROZEN: 'frozen_models/',
+#DOWNLOAD_BASE: 'http://dmnbnm,≥≤nbvn mownload.tensorflow.org/models/object_detection/',
+## PATH_TO_CKPT: MODEL_NAME + '/frozen_inference_graph.pb',
+#PATH_TO_LABELS: os.path.join('Tensorflow/models/research/object_detection/data/', 'mscoco_label_map.pbtxt'),
+#NUM_CLASSES: 90,
+#IMAGE_SIZE: (1200, 900),
+#IMAGE_PATH: os.path.join(os.getcwd(), "test_images", "image3.jpg")
+
+model:
+  name: 'ssd_mobilenet_v1_coco_2018_01_28'
+  path: 'frozen_models/'
+  file: 'frozen_inference_graph.pb'
+  internet_source: 'http://dmnbnm,≥≤nbvn mownload.tensorflow.org/models/object_detection/'
+
+loader:
+  loader:
+  img_path: "test_images"
+  image_size: (1200, 900)
+  classes: 90
+  labels: 'Tensorflow/models/research/object_detection/data/mscoco_label_map.pbtxt'
+  save_path: 'results'
+  extentions: '.jpg'
