@@ -36,7 +36,7 @@ Zbiór przydatnych stron, z których korzystano:
     - [ ] Wstępna implementacja moduł odpowiedzialnego za import obrazów.
       - [ ] Schemat interfejsów klas obsługujących import
     - [x] Przygotowanie GUI
-    - [ ] Implementacja modułu importującego obrazy z ścieżki
+    - [x] Implementacja modułu importującego obrazy z ścieżki
 
 ###### 3. 7 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
@@ -48,7 +48,7 @@ Zbiór przydatnych stron, z których korzystano:
       - [ ] Weryfikacja poprawności zrealizowanej integracji.
       
   - Mateusz:
-    - [ ] Implementacja modułu importującego obraz z kamery
+    - [x] Implementacja modułu importującego obraz z kamery
       - [ ] Przetwarzenie obrazu z kamery do odpowiedniej rozdzielczości i częstości odświeżania
       - [ ] Weryfikacja poprawności importu
 
@@ -61,10 +61,10 @@ Zbiór przydatnych stron, z których korzystano:
       
   - Mateusz:
     - [ ] Implementacja modułu importującego obrazy z adresu internetowego
-      - [ ] Przeszukiwanie strony internetowej w poszukiwanie obrazów 
+      - [x] Przeszukiwanie strony internetowej w poszukiwanie obrazów 
       - [ ] Przekształcenie obrazów do odpowiedniej rozdzialczości
       - [ ] Weryfikacja poprawności importu
-      - [ ] Integracja z GUI
+      - [x] Integracja z GUI
 
 ###### 5. 12 V - Prezentacja "gotowego" systemu
   - Patryk:
