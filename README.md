@@ -48,8 +48,8 @@ Zbiór przydatnych stron, z których korzystano:
       - [ ] Weryfikacja poprawności zrealizowanej integracji.
       
   - Mateusz:
-    - [x] Implementacja modułu importującego obraz z kamery
-      - [ ] Przetwarzenie obrazu z kamery do odpowiedniej rozdzielczości i częstości odświeżania
+    - [ ] Implementacja modułu importującego obraz z kamery
+      - [x] Przetwarzenie obrazu z kamery do odpowiedniej rozdzielczości i częstości odświeżania
       - [ ] Weryfikacja poprawności importu
 
 ###### 4. 28 IV - Przedstawienie postępów, problemów, ciekawostek
