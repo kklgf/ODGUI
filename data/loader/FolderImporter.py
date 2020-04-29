@@ -1,35 +1,28 @@
 import os, sys
 from PIL import Image
-
-script_path = os.path.dirname(os.path.realpath(__file__))
-path = os.path.join(script_path, "webImport/")
+from tkinter import filedialog
 
 
-filelist = []
-dirs = os.listdir(path)
+class FolderImporter:
+    def __init__(self, in_path="webImport/"):
+        self.path = in_path + '/'
+        self.filelist = []
+        self.dirs = os.listdir(in_path)
 
+    # script_path = os.path.dirname(os.path.realpath(__file__))
+    # path = os.path.join(script_path, "webImport/")
 
-def resize():
-    for item in dirs:
-        #if os.path.isfile(path+item):
-        print(path+item)
-        filelist.append(path+item)
-        im = Image.open(path+item)
-        f, e = os.path.splitext(path+item)
-        imResize = im.resize((200,100), Image.ANTIALIAS)
-        imResize.save(f+'.png', 'png', quality=80)
+    def collect_images(self):
+        for item in self.dirs:
+            print(self.path + item)
+            self.filelist.append(self.path + item)
 
-
-resize()
-
-
-
-
-# FIRST TRY ERROR in for
-# for root, subdirs, files in os.walk(path):
-#     for f in files:
-#         if f.endswith('jpg'):
-#             filelist.append(f)
-#
-# for filepath in filelist:
-#     print(filepath)
+    def resize(self):
+        for item in self.dirs:
+            # if os.path.isfile(path+item):
+            print(self.path + item)
+            self.filelist.append(self.path + item)
+            im = Image.open(self.path + item)
+            f, e = os.path.splitext(self.path + item)
+            imResize = im.resize((200, 100), Image.ANTIALIAS)
+            imResize.save(f + '.png', 'png', quality=80)
