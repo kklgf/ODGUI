@@ -1,22 +1,13 @@
-# import tkinter as tk
-# from tkinter import filedialog, text
-# import os
-
+# from PIL import Image
+import os
+import os.path
 import tkinter as tk
 from tkinter import filedialog
-# import directoryImporter as dir_importer
 
-#,Text
-#from PIL import Image
-import os, os.path
-
-
-
-print(tk.TkVersion)
 root = tk.Tk()
 
-canvas = tk.Canvas(root, width = 900, height = 500, bg = "#263D42")
-canvas.create_line(root, relx=0.48)
+canvas = tk.Canvas(root, width=900, height=500, bg="#263D42")
+# canvas.create_line(root, relx=0.48)
 canvas.pack()
 
 
@@ -40,19 +31,19 @@ def analyze():
     raise NotImplementedError()
 
 
-def read_all_images():
-    my_string = "'" + str(filelist[0]) + "'"
-    imgs = []
-    path = my_string;
-    # valid_images = [".jpg", ".gif", ".png", ".tga"]
-    for f in os.listdir(path):
-        ext = os.path.splitext(f)[1]
-        imgs.append(Image.open(os.path.join(path, f)))
+# def read_all_images():
+#     my_string = "'" + str(filelist[0]) + "'"
+#     imgs = []
+#     path = my_string;
+#     # valid_images = [".jpg", ".gif", ".png", ".tga"]
+#     for f in os.listdir(path):
+#         ext = os.path.splitext(f)[1]
+#         imgs.append(Image.open(os.path.join(path, f)))
 
 
 
 analyze_folder_butotn =  tk.Button(object_detection_frame, text = "Analyze!",
-                           padx = 10, pady = 5, fg = "#C4CBCC", bg = "#263D42", command = read_all_images())
+                           padx = 10, pady = 5, fg = "#C4CBCC", bg = "#263D42")
 analyze_folder_butotn.pack()
 
 
@@ -60,9 +51,9 @@ choosefiles_button = \
     tk.Button(import_frame, text="Choose files", padx =10, pady = 5, fg="#C4CBCC", bg="#263D42", command = choose_files)
 choosefiles_button.pack()
 
-# analyze_button = tk.Button(object_detection_frame, text = "Analyze!",
-#                            padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command = analyze)
-# analyze_button.pack()
+analyze_button = tk.Button(object_detection_frame, text = "Analyze!",
+                           padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command = analyze)
+analyze_button.pack()
 
 root.mainloop()
 
