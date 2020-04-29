@@ -19,9 +19,9 @@ class Process:
             line_thickness=2)
         return image
 
-    @staticmethod
-    def show_image(image: np.ndarray, save=False):
+    def ss_image(self, image: np.ndarray, name: str, show=False, save=False):
         img = Image.fromarray(image, 'RGB')
         if save:
-            img.save('results/tmp.png')
-        img.show()
+            img.save(self.config['loader']['save_path'] + "/boxes_" + name)
+        if show:
+            img.show()

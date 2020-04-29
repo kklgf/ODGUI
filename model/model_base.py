@@ -6,7 +6,12 @@ import os
 class Model:
     def __init__(self, config: Dict):
         self.config = config
+        self.loader = self.config['loader']['loader']
+        self.process = self.config['process']
         self.graph = None
+        self.load_inference_graph()
+        self.create_session()
+        self.labels = self.loader.load_coco_labels()
 
     def load_inference_graph(self):
         path = os.path.join(os.getcwd(),
@@ -17,7 +22,6 @@ class Model:
 
     def create_session(self):
         input_names = ['image_tensor']
-
         # Create session and load graph
         self.tf_config = tf.ConfigProto()
         self.tf_config.gpu_options.allow_growth = True
@@ -35,3 +39,14 @@ class Model:
             [self.tf_scores, self.tf_boxes, self.tf_classes, self.tf_num_detections],
             feed_dict={self.tf_input: image[None, ...]})
         return boxes[0], classes[0].astype(int), scores[0], int(num_detections[0])  # index by 0 to remove batch dimension
+
+    def predict_img(self, img_path: str):
+        image = self.loader.get_image(img_path)
+        detections = self.run_inference_one_image(image)
+        img_boxes = self.process.add_detections_on_image(detections, image, self.labels)
+        self.process.ss_image(image, path_leaf(img_path), self.config['show'], self.config['save'])
+        return img_boxes
+
+    def predict_video(self, video_path: str, show=False, save=False):
+        raise NotImplementedError
+

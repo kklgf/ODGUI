@@ -17,8 +17,14 @@ model:
 loader:
   loader:
   img_path: "test_images"
-  image_size: (1200, 900)
+  default_size:
+    x: 1200
+    y: 900
+  image_size:
   classes: 90
   labels: 'Tensorflow/models/research/object_detection/data/mscoco_label_map.pbtxt'
   save_path: 'results'
   extentions: '.jpg'
+
+show: True
+save: True

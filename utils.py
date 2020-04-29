@@ -1,4 +1,5 @@
 import tensorflow as tf
+import ntpath
 
 
 def get_frozen_graph(graph_file):
@@ -7,3 +8,8 @@ def get_frozen_graph(graph_file):
         graph_def = tf.GraphDef()
         graph_def.ParseFromString(f.read())
     return graph_def
+
+
+def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)

@@ -22,8 +22,9 @@ from model.model_base import Model
 from data.loader.loader_base import Loader
 from data.preprocessing.preprocess_base import Process
 
-with open(r'config.yaml') as file:
+with open(r'config.yml') as file:
     config = yaml.load(file, Loader=yaml.FullLoader)
+config['loader']['image_size'] = (config['loader']['default_size']['x'], config['loader']['default_size']['y'])
 
 ########
 # GUI idzie tutaj i zbiera dane w config
@@ -31,34 +32,31 @@ with open(r'config.yaml') as file:
 ########
 
 
-model = Model(config)
 loader = Loader(config)
 config['loader']['loader'] = loader
 process = Process(config)
+config['process'] = process
+model = Model(config)
+config['model']['model'] = model
 
-dest = Path(config['loader']['results'])
+dest = Path(config['loader']['save_path'])
 if not dest.exists():
     dest.mkdir()
 
 source = Path(config['loader']['img_path'])
-######################### WORK IN PROGRESS
-# if source.is_dir():
-#     for img_path in tqdm(source.rglob('**/*')):
-#         if img_path.suffix in config['loader']['extentions']:
-#             predict_img(str(img_path), model, args.output)
-# elif source.is_file():
-#     if source.suffix == '.avi':
-#         predict_video(str(source), model, args.output)
-#     elif source.suffix in VALID_FORMATS:
-#         predict_img(str(source), model, args.output)
-######################### WORK IN PROGRESS END
 
-model.load_inference_graph()
-model.create_session()
+if source.is_dir():
+    for img_path in tqdm(source.rglob('**/*')):
+        if img_path.suffix in config['loader']['extentions']:
+            detections = model.predict_img(str(img_path))
+elif source.is_file():
+    if source.suffix == '.avi':
+        model.predict_video(str(source))
+    elif source.suffix in config['loader']['extentions']:
+        model.predict_img(str(source))
 
-image = loader._get_test_image()
-labels = loader._load_coco_labels()
-detections = model.run_inference_one_image(image)
-
-image = process.add_detections_on_image(detections, image, labels)
-process.show_image(image, save=True)
+# image = loader._get_test_image()
+# detections = model.run_inference_one_image(image)
+#
+# image = process.add_detections_on_image(detections, image, labels)
+# process.ss_image(image, save=True)
