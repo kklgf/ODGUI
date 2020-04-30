@@ -4,7 +4,7 @@ from tkinter import filedialog
 
 
 class FolderImporter:
-    def __init__(self, in_path="webImport/"):
+    def __init__(self, in_path="webImport"):
         self.path = in_path + '/'
         self.filelist = []
         self.dirs = os.listdir(in_path)

@@ -21,6 +21,7 @@ from Tensorflow.models.research.object_detection.utils import ops as utils_ops
 from model.model_base import Model
 from data.loader.loader_base import Loader
 from data.preprocessing.preprocess_base import Process
+from data.GUI.GUI import *
 
 with open(r'config.yml') as file:
     config = yaml.load(file, Loader=yaml.FullLoader)
@@ -30,6 +31,10 @@ config['loader']['image_size'] = (config['loader']['default_size']['x'], config[
 # GUI idzie tutaj i zbiera dane w config
 # nadpisuje standardowe wartości wczytane z config.yml
 ########
+gui = GUI()
+photos_fiele_paths = gui.filespaths
+
+
 
 
 loader = Loader(config)

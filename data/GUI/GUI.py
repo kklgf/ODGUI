@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
-from data.loader.FolderImporter import *
-
+from FolderImporter import *
+from webPageImporter import *
+from CameraImport import *
 
 class GUI:
     def __init__(self):
@@ -41,7 +42,7 @@ class GUI:
             label.pack()
 
     def analyze(self):
-        folder_importer = FolderImporter(in_path=self.folderpath[0]) #todo cannot create a FolderImporter innsance despite including a path
+        folder_importer = FolderImporter(in_path=self.folderpath[0])
         folder_importer.collect_images()
         self.filespaths = folder_importer.filelist
 
@@ -65,17 +66,29 @@ class GUI:
     def print_camera_import(self):
         for widget in self.import_frame.winfo_children():
             widget.destroy()
+        camera_importer = CameraImporter()
         camera_button = tk.Button(self.import_frame, text="Import images from camera",
-                                   padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=self.analyze)
+                                   padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=camera_importer.cature)
         camera_button.pack()
 
     def print_webpage_import(self):
         for widget in self.import_frame.winfo_children():
             widget.destroy()
+        tk.Label(self.import_frame, text="Provide webpage", bg="#263D42", fg="#C4CBCC").pack()
+        web_adress = tk.Entry(self.import_frame)
+        web_adress.pack()
+        web_pi = webPageImporter(web_adress, self)
         webpage_button = \
             tk.Button(self.import_frame, text="Analyze webpage", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                      command=self.choose_folders)
+                      command=web_pi.read_website) #todo
         webpage_button.pack()
+
+
+    def update_web_page_files(self):
+        folder_importer = FolderImporter("webImport")
+        folder_importer.collect_images()
+        self.filespaths = folder_importer.filelist
+
 
     # def read_all_images():
     #     my_string = "'" + str(filelist[0]) + "'"
@@ -85,4 +98,6 @@ class GUI:
     #     for f in os.listdir(path):
     #         ext = os.path.splitext(f)[1]
     #         imgs.append(Image.open(os.path.join(path, f)))
+
+
 
