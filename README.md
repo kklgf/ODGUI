@@ -33,8 +33,8 @@ Zbiór przydatnych stron, z których korzystano:
       - [x] Implementacja obsługujących go metod.
       
   - Mateusz:
-    - [ ] Wstępna implementacja moduł odpowiedzialnego za import obrazów.
-      - [ ] Schemat interfejsów klas obsługujących import
+    - [x] Wstępna implementacja moduł odpowiedzialnego za import obrazów.
+      - [x] Schemat interfejsów klas obsługujących import
     - [x] Przygotowanie GUI
     - [x] Implementacja modułu importującego obrazy z ścieżki
 
