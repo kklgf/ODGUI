@@ -4,8 +4,14 @@ from tkinter import filedialog
 from data.loader.FolderImporter import *
 from data.loader.WebPageImporter import *
 from data.loader.CameraImporter import *
+from data.loader.loader_base import *
 from functools import partial
 from typing import Dict
+from pathlib2 import Path
+from tqdm import tqdm
+from data.preprocessing.preprocess_base import Process
+from model.model_base import Model
+from data.loader.loader_base import Loader
 
 
 class GUI:
@@ -45,9 +51,33 @@ class GUI:
             label.pack()
 
     def analyze(self):
-        self.config['loader']['img_path'] = self.folderpath
+        self.config['loader']['img_path'] = self.folderpath[0]
+
+        loader = Loader(self.config)
+        self.config['loader']['loader'] = loader
+        process = Process(self.config)
+        self.config['process'] = process
+        model = Model(self.config)
+        self.config['model']['model'] = model
+
+        dest = Path(self.config['loader']['save_path'])
+        if not dest.exists():
+            dest.mkdir()
+
+        source = Path(self.config['loader']['img_path'])
+
+        if source.is_dir():
+            for img_path in tqdm(source.rglob('**/*')):
+                if img_path.suffix in self.config['loader']['extentions']:
+                    detections = model.predict_img(str(img_path))
+        elif source.is_file():
+            if source.suffix == '.avi':
+                model.predict_video(str(source))
+            elif source.suffix in self.config['loader']['extentions']:
+                model.predict_img(str(source))
         # for path in self.filespaths:
         #     self.config['loader']['img_path'] = path
+
 
 
     def callbackFunc(self, event):
