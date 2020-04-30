@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
-from FolderImporter import *
-from webPageImporter import *
-from CameraImport import *
+from data.loader.FolderImporter import *
+from data.loader.WebPageImporter import *
+from data.loader.CameraImporter import *
+from functools import partial
 
 class GUI:
     def __init__(self):
@@ -77,11 +78,19 @@ class GUI:
         tk.Label(self.import_frame, text="Provide webpage", bg="#263D42", fg="#C4CBCC").pack()
         web_adress = tk.Entry(self.import_frame)
         web_adress.pack()
-        web_pi = webPageImporter(web_adress, self)
+        webpage_button_action = partial(self.run_webpage_analyze, web_adress)
         webpage_button = \
             tk.Button(self.import_frame, text="Analyze webpage", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                      command=web_pi.read_website) #todo
+                      command=webpage_button_action)
         webpage_button.pack()
+        webpage_button_fotopathupdate = \
+            tk.Button(self.import_frame, text="Update fotopath", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
+                      command=self.update_web_page_files)
+        webpage_button_fotopathupdate.pack()
+
+    def run_webpage_analyze(self, web_adress):
+        web_pi = WebPageImporter(web_adress.get())
+        web_pi.read_website()
 
 
     def update_web_page_files(self):

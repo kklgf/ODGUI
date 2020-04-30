@@ -26,3 +26,4 @@ class FolderImporter:
             f, e = os.path.splitext(self.path + item)
             imResize = im.resize((200, 100), Image.ANTIALIAS)
             imResize.save(f + '.png', 'png', quality=80)
+

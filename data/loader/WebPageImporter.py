@@ -2,20 +2,22 @@ import re
 import requests  # to install
 from bs4 import BeautifulSoup  # to install
 import os
-from selenium import webdriver
-from GUI import *
+from selenium import webdriver #to install
+from data.GUI.GUI import *
 
 
-class webPageImporter:
-    def __init__(self, in_site, in_gui):
-        self.gui = in_gui
+class WebPageImporter:
+    def __init__(self, in_site):
+        #self.gui = , )
         self.site = str(in_site)
         self.directory = os.path.dirname(os.path.realpath(__file__)) + '/webImport/'
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
 
     # read website
-    def read_website(self):
+    def read_website(self, in_site=None):
+        if in_site is not None:
+            self.site = str(in_site)
         driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
         driver.get(self.site)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
@@ -33,4 +35,4 @@ class webPageImporter:
                 response = requests.get(url)
                 f.write(response.content)
 
-        self.gui.update_web_page_files()
+        #self.gui.update_web_page_files()
