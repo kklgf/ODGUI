@@ -43,9 +43,9 @@ Zbiór przydatnych stron, z których korzystano:
     - [x] Przetestowanie działania modelu.
       - [x] Weryfikacja, czy zaimplementowane metody działają zgodnie z oczekiwaniami.
       - [x] Weryfikacja poprawności detekcji.
-    - [ ] Integracja z modułem odpowiedzialnym za GUI.
-      - [ ] Dostosowanie przygotowanego modułu do uruchomienia z poziomu GUI.
-      - [ ] Weryfikacja poprawności zrealizowanej integracji.
+    - [x] Integracja z modułem odpowiedzialnym za GUI.
+      - [x] Dostosowanie przygotowanego modułu do uruchomienia z poziomu GUI.
+      - [x] Weryfikacja poprawności zrealizowanej integracji.
       
   - Mateusz:
     - [ ] Implementacja modułu importującego obraz z kamery
@@ -54,10 +54,10 @@ Zbiór przydatnych stron, z których korzystano:
 
 ###### 4. 28 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
-    - [ ] Implementacja dodatkowych modeli detekcji.
-      - [ ] Dodanie kolejnych modeli sieci neuronowych.
-      - [ ] Przygotowanie klasy obsługującej każdy z nich.
-      - [ ] Dodanie systemu przetwarzania obrazu dla każdego modelu.
+    - [x] Implementacja dodatkowych modeli detekcji.
+      - [x] Dodanie kolejnych modeli sieci neuronowych.
+      - [x] Przygotowanie klasy obsługującej każdy z nich.
+      - [x] Dodanie systemu przetwarzania obrazu dla każdego modelu.
       
   - Mateusz:
     - [ ] Implementacja modułu importującego obrazy z adresu internetowego
