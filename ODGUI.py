@@ -31,8 +31,8 @@ config['loader']['image_size'] = (config['loader']['default_size']['x'], config[
 # GUI idzie tutaj i zbiera dane w config
 # nadpisuje standardowe wartości wczytane z config.yml
 ########
-gui = GUI()
-photos_fiele_paths = gui.filespaths
+gui = GUI(config)
+photos_files_paths = gui.filespaths
 
 
 

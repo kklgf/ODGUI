@@ -5,9 +5,12 @@ from data.loader.FolderImporter import *
 from data.loader.WebPageImporter import *
 from data.loader.CameraImporter import *
 from functools import partial
+from typing import Dict
+
 
 class GUI:
-    def __init__(self):
+    def __init__(self, config: Dict):
+        self.config = config
         self.folderpath = []
         self.filespaths = []
         self.root = tk.Tk()
@@ -28,7 +31,6 @@ class GUI:
         self.choose_import.pack()
         self.choose_import.bind("<<ComboboxSelected>>", self.callbackFunc)
         #Buttons
-
         analyze_button = tk.Button(self.object_detection_frame, text="Analyze!",
                                    padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=self.analyze)
         analyze_button.pack()
@@ -43,9 +45,10 @@ class GUI:
             label.pack()
 
     def analyze(self):
-        folder_importer = FolderImporter(in_path=self.folderpath[0])
-        folder_importer.collect_images()
-        self.filespaths = folder_importer.filelist
+        self.config['loader']['img_path'] = self.folderpath
+        # for path in self.filespaths:
+        #     self.config['loader']['img_path'] = path
+
 
     def callbackFunc(self, event):
         el_number = self.choose_import.current()
@@ -60,9 +63,18 @@ class GUI:
         for widget in self.import_frame.winfo_children():
             widget.destroy()
         choosefiles_button = \
-            tk.Button(self.import_frame, text="Choose files", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
+            tk.Button(self.import_frame, text="Choose folder", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self.choose_folders)
         choosefiles_button.pack()
+        choosefiles_button_fotopathupdate = \
+            tk.Button(self.import_frame, text="Update fotopath", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
+                      command=self.update_folder_import_files)
+        choosefiles_button_fotopathupdate.pack()
+
+    def update_folder_import_files(self):
+        folder_importer = FolderImporter(in_path=self.folderpath[0])
+        folder_importer.collect_images()
+        self.filespaths = folder_importer.filelist
 
     def print_camera_import(self):
         for widget in self.import_frame.winfo_children():
@@ -75,7 +87,7 @@ class GUI:
     def print_webpage_import(self):
         for widget in self.import_frame.winfo_children():
             widget.destroy()
-        tk.Label(self.import_frame, text="Provide webpage", bg="#263D42", fg="#C4CBCC").pack()
+        tk.Label(self.import_frame, text="Provide  (http://)", bg="#263D42", fg="#C4CBCC").pack()
         web_adress = tk.Entry(self.import_frame)
         web_adress.pack()
         webpage_button_action = partial(self.run_webpage_analyze, web_adress)
@@ -94,7 +106,7 @@ class GUI:
 
 
     def update_web_page_files(self):
-        folder_importer = FolderImporter("webImport")
+        folder_importer = FolderImporter("data/loader/webImport")
         folder_importer.collect_images()
         self.filespaths = folder_importer.filelist
 
