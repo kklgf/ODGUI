@@ -7,9 +7,9 @@
 #NUM_CLASSES: 90,
 #IMAGE_SIZE: (1200, 900),
 #IMAGE_PATH: os.path.join(os.getcwd(), "test_images", "image3.jpg")
-
+# old path ssd_mobilenet_v1_coco_2018_01_28
 model:
-  name: 'ssd_mobilenet_v1_coco_2018_01_28'
+  name: 'ssdlite_mobilenet_v2_coco_2018_05_09'
   path: 'frozen_models/'
   file: 'frozen_inference_graph.pb'
   internet_source: 'http://dmnbnm,≥≤nbvn mownload.tensorflow.org/models/object_detection/'

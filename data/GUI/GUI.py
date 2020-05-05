@@ -23,28 +23,60 @@ class GUI:
         # canvas
         self.canvas = tk.Canvas(self.root, width=900, height=500, bg="#263D42")
         self.canvas.pack()
-        #Frames
+
+        # Frames
+        # Import Frames
         self.import_frame = tk.Frame(self.root, bg="#182629")
         self.import_frame.place(relwidth=0.44, relheight=0.66, relx=0.04, rely=0.29)
         self.choose_frame = tk.Frame(self.root, bg="#182629")
         self.choose_frame.place(relwidth=0.44, relheight=0.20, relx=0.04, rely=0.07)
+        self.radio_btn_frame = tk.Frame(self.choose_frame, bg="#182629")
+        self.radio_btn_frame.place(relwidth=0.44, relheight=0.50, relx=0.5, rely=0.5)
+        # Object detection frames
         self.object_detection_frame = tk.Frame(self.root, bg="#182629")
         self.object_detection_frame.place(relwidth=0.44, relheight=0.86, relx=0.52, rely=0.07)
+
+        self.threshold_frame = tk.Frame(self.root, bg="#182629")
+        self.threshold_frame.place(relwidth=0.30, relheight=0.2, relx=0.58, rely=0.5)
+        # threshold inputbox
+        self.threshold_entry_label = tk.Label(self.threshold_frame, text="Set threshold", bg="#263D42", fg="#C4CBCC")
+        self.threshold_entry_label.pack()
+        self.threshold_entry = tk.Entry(self.threshold_frame)
+        self.threshold_entry.pack()
         # combobox
-        self.choose_import_label = tk.Label(self.choose_frame, text="Choose import method",  bg="#263D42", fg="#C4CBCC")
+        self.choose_import_label = tk.Label(self.choose_frame, text="Choose import method", bg="#263D42", fg="#C4CBCC")
         self.choose_import_label.pack()
-        self.choose_import = ttk.Combobox(self.choose_frame, values = ["Folder", "Camera", "Webpage"])
+        self.choose_import = ttk.Combobox(self.choose_frame, values=["Folder", "Camera", "Webpage"])
         self.choose_import.pack()
         self.choose_import.bind("<<ComboboxSelected>>", self.callbackFunc)
-        #Buttons
+        # Radiobutton .jpg/.jpeg
+        self.radio_btn_var = tk.StringVar(value='.jpg')
+
+        # Buttons
         analyze_button = tk.Button(self.object_detection_frame, text="Analyze!",
                                    padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=self.analyze)
         analyze_button.pack()
-        #starter
+        # Radiobutton neural network
+        self.label_choose_network = tk.Label(self.object_detection_frame,
+                                             text="Choose neural network", bg="#263D42", fg="#C4CBCC")
+        self.label_choose_network.pack()
+        self.radio_btn_network_var = tk.StringVar(value='ssd_mobilenet_v1_coco_2018_01_28')
+        self.radio_btn_network_1 = tk.Radiobutton(self.object_detection_frame, text='Network1(older)',
+                                                  variable=self.radio_btn_network_var,
+                                                  value='ssd_mobilenet_v1_coco_2018_01_28',
+                                                  fg="#C4CBCC", bg="#263D42")
+        self.radio_btn_network_1.pack()
+        self.radio_btn_network_1 = tk.Radiobutton(self.object_detection_frame, text='Network2(newer)',
+                                                  variable=self.radio_btn_network_var,
+                                                  value='ssdlite_mobilenet_v2_coco_2018_05_09',
+                                                  fg="#C4CBCC", bg="#263D42")
+        self.radio_btn_network_1.pack()
+        # starter
         self.root.mainloop()
 
     def choose_folders(self):
-        foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")  # TODO filetypes
+        self.folderpath = []
+        foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
         self.folderpath.append(foldername)
         for filepath in self.folderpath:
             label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
@@ -52,7 +84,8 @@ class GUI:
 
     def analyze(self):
         self.config['loader']['img_path'] = self.folderpath[0]
-
+        self.config['loader']['extentions'] = self.radio_btn_var.get()
+        self.config['model']['name'] = self.radio_btn_network_var.get()
         loader = Loader(self.config)
         self.config['loader']['loader'] = loader
         process = Process(self.config)
@@ -78,8 +111,6 @@ class GUI:
         # for path in self.filespaths:
         #     self.config['loader']['img_path'] = path
 
-
-
     def callbackFunc(self, event):
         el_number = self.choose_import.current()
         if el_number == 0:
@@ -90,6 +121,14 @@ class GUI:
             self.print_webpage_import()
 
     def print_folder_import(self):
+        for widget in self.radio_btn_frame.winfo_children():
+            widget.destroy()
+        radio_btn_jpg = tk.Radiobutton(self.radio_btn_frame, text='.jpg',
+                                       variable=self.radio_btn_var, value='.jpg', fg="#C4CBCC", bg="#263D42")
+        radio_btn_jpg.pack()
+        radio_btn_jpeg = tk.Radiobutton(self.radio_btn_frame, text='.jpeg', variable=self.radio_btn_var,
+                                        value='.jpeg', fg="#C4CBCC", bg="#263D42")
+        radio_btn_jpeg.pack()
         for widget in self.import_frame.winfo_children():
             widget.destroy()
         choosefiles_button = \
@@ -107,11 +146,13 @@ class GUI:
         self.filespaths = folder_importer.filelist
 
     def print_camera_import(self):
+        for widget in self.radio_btn_frame.winfo_children():
+            widget.destroy()
         for widget in self.import_frame.winfo_children():
             widget.destroy()
         camera_importer = CameraImporter()
         camera_button = tk.Button(self.import_frame, text="Import images from camera",
-                                   padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=camera_importer.cature)
+                                  padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=camera_importer.cature)
         camera_button.pack()
 
     def print_webpage_import(self):
@@ -133,13 +174,12 @@ class GUI:
     def run_webpage_analyze(self, web_adress):
         web_pi = WebPageImporter(web_adress.get())
         web_pi.read_website()
-
+        self.folderpath.append(os.path.dirname(os.path.realpath(__file__)) + 'data/loader/webImport/')
 
     def update_web_page_files(self):
         folder_importer = FolderImporter("data/loader/webImport")
         folder_importer.collect_images()
         self.filespaths = folder_importer.filelist
-
 
     # def read_all_images():
     #     my_string = "'" + str(filelist[0]) + "'"
@@ -149,6 +189,3 @@ class GUI:
     #     for f in os.listdir(path):
     #         ext = os.path.splitext(f)[1]
     #         imgs.append(Image.open(os.path.join(path, f)))
-
-
-
