@@ -11,5 +11,8 @@ dependencies:
     - tkinter=8.6
     - pathlib2
     - tqdm
+    - requests
+    - bs4
+    - selenium
     - pip:
           - opencv-python

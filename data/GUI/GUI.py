@@ -93,23 +93,26 @@ class GUI:
         model = Model(self.config)
         self.config['model']['model'] = model
 
-        dest = Path(self.config['loader']['save_path'])
-        if not dest.exists():
-            dest.mkdir()
+        if self.config['loader']['img_path'] == 0:
+            model.predict_camera()
+        else:
+            dest = Path(self.config['loader']['save_path'])
+            if not dest.exists():
+                dest.mkdir()
 
-        source = Path(self.config['loader']['img_path'])
+            source = Path(self.config['loader']['img_path'])
 
-        if source.is_dir():
-            for img_path in tqdm(source.rglob('**/*')):
-                if img_path.suffix in self.config['loader']['extentions']:
-                    detections = model.predict_img(str(img_path))
-        elif source.is_file():
-            if source.suffix == '.avi':
-                model.predict_video(str(source))
-            elif source.suffix in self.config['loader']['extentions']:
-                model.predict_img(str(source))
-        # for path in self.filespaths:
-        #     self.config['loader']['img_path'] = path
+            if source.is_dir():
+                for img_path in tqdm(source.rglob('**/*')):
+                    if img_path.suffix in self.config['loader']['extentions']:
+                        detections = model.predict_img(str(img_path))
+            elif source.is_file():
+                if source.suffix == '.avi':
+                    model.predict_video(str(source))
+                elif source.suffix in self.config['loader']['extentions']:
+                    model.predict_img(str(source))
+            # for path in self.filespaths:
+            #     self.config['loader']['img_path'] = path
 
     def callbackFunc(self, event):
         el_number = self.choose_import.current()
@@ -146,14 +149,15 @@ class GUI:
         self.filespaths = folder_importer.filelist
 
     def print_camera_import(self):
-        for widget in self.radio_btn_frame.winfo_children():
-            widget.destroy()
-        for widget in self.import_frame.winfo_children():
-            widget.destroy()
-        camera_importer = CameraImporter()
-        camera_button = tk.Button(self.import_frame, text="Import images from camera",
-                                  padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=camera_importer.cature)
-        camera_button.pack()
+        self.folderpath = [0]
+        # for widget in self.radio_btn_frame.winfo_children():
+        #     widget.destroy()
+        # for widget in self.import_frame.winfo_children():
+        #     widget.destroy()
+        # camera_importer = CameraImporter()
+        # camera_button = tk.Button(self.import_frame, text="Import images from camera",
+        #                           padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=camera_importer.cature)
+        # camera_button.pack()
 
     def print_webpage_import(self):
         for widget in self.import_frame.winfo_children():

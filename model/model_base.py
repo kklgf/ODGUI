@@ -1,7 +1,23 @@
 from typing import Dict
+
+
+from PIL import Image
 from utils import *
 import os
+import subprocess
+import shlex
+import json
+import cv2
 
+
+def video_metadata(video_path):
+    cmd = "ffprobe -v quiet -print_format json -show_streams"
+    args = shlex.split(cmd)
+    args.append(video_path)
+    # run the ffprobe process, decode stdout into utf-8 & convert to JSON
+    ffprobeOutput = subprocess.check_output(args).decode('utf-8')
+    ffprobeOutput = json.loads(ffprobeOutput)
+    return ffprobeOutput['streams'][0]
 
 class Model:
     def __init__(self, config: Dict):
@@ -47,6 +63,55 @@ class Model:
         self.process.ss_image(image, path_leaf(img_path), self.config['show'], self.config['save'])
         return img_boxes
 
-    def predict_video(self, video_path: str, show=False, save=False):
-        raise NotImplementedError
+    def predict_video(self, video_path: str, video_out = "./results/video.avi", show=False, save=False):
+        metadata = video_metadata(video_path)
+        cap = cv2.VideoCapture(video_path)
+        if (cap.isOpened() == False):
+            print("Unable to read camera feed")
 
+        frame_width = metadata['width']
+        frame_height = metadata['height']
+        codec = cv2.VideoWriter_fourcc(*metadata['codec_tag_string'])
+        fps_str = metadata['avg_frame_rate'].split('/')
+        fps = int(int(fps_str[0]) / int(fps_str[1]))
+        out = cv2.VideoWriter(video_out, codec, fps, (frame_width, frame_height))
+
+        while (True):
+            ret, frame = cap.read()
+            if ret == True:
+                detections = self.run_inference_one_image(frame)
+                img_boxes = self.process.add_detections_on_image(detections, frame, self.labels)
+                img = Image.fromarray(img_boxes, 'RGB')
+                out.write(cv2.UMat(img))
+            else:
+                break
+        cap.release()
+        out.release()
+        return video_out
+
+    def predict_camera(self, video_out = "./results/camera.avi"):
+        cap = cv2.VideoCapture(0)
+        if (cap.isOpened() == False):
+            print("Unable to read camera feed")
+
+        frame_width = int(cap.get(3))
+        frame_height = int(cap.get(4))
+        codec = cv2.VideoWriter_fourcc(*'XVID')
+        fps = 10
+        out = cv2.VideoWriter(video_out, codec, fps, (frame_width, frame_height))
+
+        while (True):
+            ret, frame = cap.read()
+            if ret == True:
+                detections = self.run_inference_one_image(frame)
+                img_boxes = self.process.add_detections_on_image(detections, frame, self.labels)
+                # img = Image.fromarray(img_boxes, 'RGB')
+                cv2.imshow('Camera detections', img_boxes)
+                out.write(cv2.UMat(img_boxes))
+            else:
+                break
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        cap.release()
+        out.release()
+        return video_out
