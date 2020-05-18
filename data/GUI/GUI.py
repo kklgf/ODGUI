@@ -61,12 +61,12 @@ class GUI:
                                              text="Choose neural network", bg="#263D42", fg="#C4CBCC")
         self.label_choose_network.pack()
         self.radio_btn_network_var = tk.StringVar(value='ssd_mobilenet_v1_coco_2018_01_28')
-        self.radio_btn_network_1 = tk.Radiobutton(self.object_detection_frame, text='Network1(older)',
+        self.radio_btn_network_1 = tk.Radiobutton(self.object_detection_frame, text='MobileNet v1',
                                                   variable=self.radio_btn_network_var,
                                                   value='ssd_mobilenet_v1_coco_2018_01_28',
                                                   fg="#C4CBCC", bg="#263D42")
         self.radio_btn_network_1.pack()
-        self.radio_btn_network_1 = tk.Radiobutton(self.object_detection_frame, text='Network2(newer)',
+        self.radio_btn_network_1 = tk.Radiobutton(self.object_detection_frame, text='MobileNet v2',
                                                   variable=self.radio_btn_network_var,
                                                   value='ssdlite_mobilenet_v2_coco_2018_05_09',
                                                   fg="#C4CBCC", bg="#263D42")
@@ -83,6 +83,8 @@ class GUI:
             label.pack()
 
     def analyze(self):
+        if self.threshold_entry.get():
+            self.config['threshold'] = float(self.threshold_entry.get())
         self.config['loader']['img_path'] = self.folderpath[0]
         self.config['loader']['extentions'] = self.radio_btn_var.get()
         self.config['model']['name'] = self.radio_btn_network_var.get()

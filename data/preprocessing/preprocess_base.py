@@ -8,13 +8,12 @@ class Process:
     def __init__(self, config: Dict):
         self.config = config
 
-    @staticmethod
-    def add_detections_on_image(detections: Tuple, image: np.ndarray, category_index: Dict):
+    def add_detections_on_image(self, detections: Tuple, image: np.ndarray, category_index: Dict):
         vis_util.visualize_boxes_and_labels_on_image_array(
             image,
             *detections[0:3],
             category_index,
-            min_score_thresh=.4,
+            min_score_thresh=self.config['threshold'],
             use_normalized_coordinates=True,
             line_thickness=2)
         return image
