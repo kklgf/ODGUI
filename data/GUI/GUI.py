@@ -21,11 +21,11 @@ class GUI:
         self.filespaths = []
         self.outpufolder = 'results'
         self.root = tk.Tk()
-    # canvas
+        # canvas
         self.canvas = tk.Canvas(self.root, width=900, height=500, bg="#263D42")
         self.canvas.pack()
 
-    # Frames
+        # Frames
         # Import Frames
         self.import_frame = tk.Frame(self.root, bg="#182629")
         self.import_frame.place(relwidth=0.44, relheight=0.66, relx=0.04, rely=0.29)
@@ -39,24 +39,23 @@ class GUI:
         # treshold frame
         self.threshold_frame = tk.Frame(self.root, bg="#182629")
         self.threshold_frame.place(relwidth=0.30, relheight=0.2, relx=0.58, rely=0.5)
-    # Input and boxes
+        # Input and boxes
         # threshold inputbox
         self.threshold_entry_label = tk.Label(self.threshold_frame, text="Set threshold", bg="#263D42", fg="#C4CBCC")
         self.threshold_entry_label.pack()
         self.threshold_entry = tk.Entry(self.threshold_frame)
         self.threshold_entry.pack()
-        #set output
+        # set output
         outpufolder_label = tk.Label(self.threshold_frame,
-                                          text="Current output folder:", bg="#263D42", fg="#C4CBCC")
+                                     text="Current output folder:", bg="#263D42", fg="#C4CBCC")
         outpufolder_label.pack()
         self.current_output_folder_label = tk.Label(self.threshold_frame,
                                                     text="./results", bg="#263D42", fg="#C4CBCC")
         self.current_output_folder_label.pack()
         set_output_folder_button = tk.Button(self.threshold_frame, text="Choose result folder!",
-                                   padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=self.set_output_folder)
+                                             padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
+                                             command=self.set_output_folder)
         set_output_folder_button.pack()
-
-
 
         # combobox
         self.choose_import_label = tk.Label(self.choose_frame, text="Choose import method", bg="#263D42", fg="#C4CBCC")
@@ -87,7 +86,7 @@ class GUI:
                                                   fg="#C4CBCC", bg="#263D42")
         self.radio_btn_network_1.pack()
 
-    # starter
+        # starter
         self.root.mainloop()
 
     def choose_folders(self):
@@ -143,9 +142,8 @@ class GUI:
             self.print_webpage_import()
 
     def print_folder_import(self):
+        self.destroy_input_children()
         self.print_image_format_radiobutton()
-        for widget in self.import_frame.winfo_children():
-            widget.destroy()
         choosefiles_button = \
             tk.Button(self.import_frame, text="Choose folder", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self.choose_folders)
@@ -162,16 +160,14 @@ class GUI:
 
     def print_camera_import(self):
         self.folderpath = [0]
-        # for widget in self.radio_btn_frame.winfo_children():
-        #     widget.destroy()
-        # for widget in self.import_frame.winfo_children():
-        #     widget.destroy()
+        self.destroy_input_children()
         # camera_importer = CameraImporter()
         # camera_button = tk.Button(self.import_frame, text="Import images from camera",
         #                           padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=camera_importer.cature)
         # camera_button.pack()
 
     def print_webpage_import(self):
+        self.destroy_input_children()
         self.print_image_format_radiobutton()
         tk.Label(self.import_frame, text="Provide  (http://)", bg="#263D42", fg="#C4CBCC").pack()
         web_adress = tk.Entry(self.import_frame)
@@ -210,6 +206,12 @@ class GUI:
         radio_btn_jpeg = tk.Radiobutton(self.radio_btn_frame, text='.jpeg', variable=self.radio_btn_var,
                                         value='.jpeg', fg="#C4CBCC", bg="#263D42")
         radio_btn_jpeg.pack()
+
+    def destroy_input_children(self):
+        for widget in self.radio_btn_frame.winfo_children():
+            widget.destroy()
+        for widget in self.import_frame.winfo_children():
+            widget.destroy()
 
     # def read_all_images():
     #     my_string = "'" + str(filelist[0]) + "'"
