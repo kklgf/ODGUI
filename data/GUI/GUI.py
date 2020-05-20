@@ -19,12 +19,13 @@ class GUI:
         self.config = config
         self.folderpath = []
         self.filespaths = []
+        self.outpufolder = 'results'
         self.root = tk.Tk()
-        # canvas
+    # canvas
         self.canvas = tk.Canvas(self.root, width=900, height=500, bg="#263D42")
         self.canvas.pack()
 
-        # Frames
+    # Frames
         # Import Frames
         self.import_frame = tk.Frame(self.root, bg="#182629")
         self.import_frame.place(relwidth=0.44, relheight=0.66, relx=0.04, rely=0.29)
@@ -35,14 +36,28 @@ class GUI:
         # Object detection frames
         self.object_detection_frame = tk.Frame(self.root, bg="#182629")
         self.object_detection_frame.place(relwidth=0.44, relheight=0.86, relx=0.52, rely=0.07)
-
+        # treshold frame
         self.threshold_frame = tk.Frame(self.root, bg="#182629")
         self.threshold_frame.place(relwidth=0.30, relheight=0.2, relx=0.58, rely=0.5)
+    # Input and boxes
         # threshold inputbox
         self.threshold_entry_label = tk.Label(self.threshold_frame, text="Set threshold", bg="#263D42", fg="#C4CBCC")
         self.threshold_entry_label.pack()
         self.threshold_entry = tk.Entry(self.threshold_frame)
         self.threshold_entry.pack()
+        #set output
+        outpufolder_label = tk.Label(self.threshold_frame,
+                                          text="Current output folder:", bg="#263D42", fg="#C4CBCC")
+        outpufolder_label.pack()
+        self.current_output_folder_label = tk.Label(self.threshold_frame,
+                                                    text="./results", bg="#263D42", fg="#C4CBCC")
+        self.current_output_folder_label.pack()
+        set_output_folder_button = tk.Button(self.threshold_frame, text="Choose result folder!",
+                                   padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=self.set_output_folder)
+        set_output_folder_button.pack()
+
+
+
         # combobox
         self.choose_import_label = tk.Label(self.choose_frame, text="Choose import method", bg="#263D42", fg="#C4CBCC")
         self.choose_import_label.pack()
@@ -71,7 +86,8 @@ class GUI:
                                                   value='ssdlite_mobilenet_v2_coco_2018_05_09',
                                                   fg="#C4CBCC", bg="#263D42")
         self.radio_btn_network_1.pack()
-        # starter
+
+    # starter
         self.root.mainloop()
 
     def choose_folders(self):
@@ -83,6 +99,7 @@ class GUI:
             label.pack()
 
     def analyze(self):
+        self.config['loader']['save_path'] = self.outpufolder
         if self.threshold_entry.get():
             self.config['threshold'] = float(self.threshold_entry.get())
         self.config['loader']['img_path'] = self.folderpath[0]
@@ -126,14 +143,7 @@ class GUI:
             self.print_webpage_import()
 
     def print_folder_import(self):
-        for widget in self.radio_btn_frame.winfo_children():
-            widget.destroy()
-        radio_btn_jpg = tk.Radiobutton(self.radio_btn_frame, text='.jpg',
-                                       variable=self.radio_btn_var, value='.jpg', fg="#C4CBCC", bg="#263D42")
-        radio_btn_jpg.pack()
-        radio_btn_jpeg = tk.Radiobutton(self.radio_btn_frame, text='.jpeg', variable=self.radio_btn_var,
-                                        value='.jpeg', fg="#C4CBCC", bg="#263D42")
-        radio_btn_jpeg.pack()
+        self.print_image_format_radiobutton()
         for widget in self.import_frame.winfo_children():
             widget.destroy()
         choosefiles_button = \
@@ -162,8 +172,7 @@ class GUI:
         # camera_button.pack()
 
     def print_webpage_import(self):
-        for widget in self.import_frame.winfo_children():
-            widget.destroy()
+        self.print_image_format_radiobutton()
         tk.Label(self.import_frame, text="Provide  (http://)", bg="#263D42", fg="#C4CBCC").pack()
         web_adress = tk.Entry(self.import_frame)
         web_adress.pack()
@@ -186,6 +195,21 @@ class GUI:
         folder_importer = FolderImporter("data/loader/webImport")
         folder_importer.collect_images()
         self.filespaths = folder_importer.filelist
+
+    def set_output_folder(self):
+        foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
+        self.outpufolder = foldername
+        self.current_output_folder_label.config(text=foldername)
+
+    def print_image_format_radiobutton(self):
+        for widget in self.radio_btn_frame.winfo_children():
+            widget.destroy()
+        radio_btn_jpg = tk.Radiobutton(self.radio_btn_frame, text='.jpg',
+                                       variable=self.radio_btn_var, value='.jpg', fg="#C4CBCC", bg="#263D42")
+        radio_btn_jpg.pack()
+        radio_btn_jpeg = tk.Radiobutton(self.radio_btn_frame, text='.jpeg', variable=self.radio_btn_var,
+                                        value='.jpeg', fg="#C4CBCC", bg="#263D42")
+        radio_btn_jpeg.pack()
 
     # def read_all_images():
     #     my_string = "'" + str(filelist[0]) + "'"

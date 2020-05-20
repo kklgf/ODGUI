@@ -3,6 +3,7 @@ import os
 import numpy as np
 import time
 
+
 class CameraImporter:
     def cature(self):
         cap = cv2.VideoCapture(0)
