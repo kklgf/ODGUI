@@ -61,7 +61,7 @@ class GUI:
         # combobox
         self.choose_import_label = tk.Label(self.choose_frame, text="Choose import method", bg="#263D42", fg="#C4CBCC")
         self.choose_import_label.pack()
-        self.choose_import = ttk.Combobox(self.choose_frame, values=["Folder", "Camera", "Webpage"])
+        self.choose_import = ttk.Combobox(self.choose_frame, values=["Folder", "Camera", "Webpage", "Video"])
         self.choose_import.pack()
         self.choose_import.bind("<<ComboboxSelected>>", self.callbackFunc)
         # Radiobutton .jpg/.jpeg
@@ -144,6 +144,8 @@ class GUI:
             self.print_camera_import()
         elif el_number == 2:
             self.print_webpage_import()
+        elif el_number == 3:
+            self.print_video_import()
 
     def print_folder_import(self):
         self.destroy_input_children()
@@ -217,6 +219,28 @@ class GUI:
         for widget in self.import_frame.winfo_children():
             widget.destroy()
 
+    def print_video_import(self):
+        self.destroy_input_children()
+        self.print_image_format_radiobutton()
+        choosefiles_button = \
+            tk.Button(self.import_frame, text="Choose video", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
+                      command=self.choose_video)
+        choosefiles_button.pack()
+        choosefiles_button_fotopathupdate = \
+            tk.Button(self.import_frame, text="Update fotopath", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
+                      command=self.update_folder_import_files)
+        choosefiles_button_fotopathupdate.pack()
+
+    def choose_video(self):
+        self.folderpath = []
+        foldername = filedialog.askopenfile(initialdir="/home/", title="Select one folder!")
+        self.folderpath.append(foldername)
+        for label in self.filespaths_labels:
+            label.destroy()
+        for filepath in self.folderpath:
+            label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
+            label.pack()
+            self.filespaths_labels.append(label)
     # def read_all_images():
     #     my_string = "'" + str(filelist[0]) + "'"
     #     imgs = []
