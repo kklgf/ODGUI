@@ -133,8 +133,6 @@ class GUI:
                     model.predict_video(str(source))
                 elif source.suffix in self.config['loader']['extentions']:
                     model.predict_img(str(source))
-            # for path in self.filespaths:
-            #     self.config['loader']['img_path'] = path
 
     def callbackFunc(self, event):
         el_number = self.choose_import.current()
@@ -154,10 +152,6 @@ class GUI:
             tk.Button(self.import_frame, text="Choose folder", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self.choose_folders)
         choosefiles_button.pack()
-        choosefiles_button_fotopathupdate = \
-            tk.Button(self.import_frame, text="Update fotopath", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                      command=self.update_folder_import_files)
-        choosefiles_button_fotopathupdate.pack()
 
     def update_folder_import_files(self):
         folder_importer = FolderImporter(in_path=self.folderpath[0])
@@ -167,10 +161,6 @@ class GUI:
     def print_camera_import(self):
         self.folderpath = [0]
         self.destroy_input_children()
-        # camera_importer = CameraImporter()
-        # camera_button = tk.Button(self.import_frame, text="Import images from camera",
-        #                           padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=camera_importer.cature)
-        # camera_button.pack()
 
     def print_webpage_import(self):
         self.destroy_input_children()
@@ -226,14 +216,11 @@ class GUI:
             tk.Button(self.import_frame, text="Choose video", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self.choose_video)
         choosefiles_button.pack()
-        choosefiles_button_fotopathupdate = \
-            tk.Button(self.import_frame, text="Update fotopath", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                      command=self.update_folder_import_files)
-        choosefiles_button_fotopathupdate.pack()
+
 
     def choose_video(self):
         self.folderpath = []
-        foldername = filedialog.askopenfile(initialdir="/home/", title="Select one folder!")
+        foldername = filedialog.askopenfilename(initialdir="/home/mateusz", title="Select video") #TODO only filepath
         self.folderpath.append(foldername)
         for label in self.filespaths_labels:
             label.destroy()
@@ -241,6 +228,9 @@ class GUI:
             label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
             label.pack()
             self.filespaths_labels.append(label)
+
+
+
     # def read_all_images():
     #     my_string = "'" + str(filelist[0]) + "'"
     #     imgs = []
