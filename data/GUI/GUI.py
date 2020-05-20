@@ -21,6 +21,7 @@ class GUI:
         self.filespaths = []
         self.outpufolder = 'results'
         self.root = tk.Tk()
+        self.filespaths_labels = []
         # canvas
         self.canvas = tk.Canvas(self.root, width=900, height=500, bg="#263D42")
         self.canvas.pack()
@@ -93,9 +94,12 @@ class GUI:
         self.folderpath = []
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
         self.folderpath.append(foldername)
+        for label in self.filespaths_labels:
+            label.destroy()
         for filepath in self.folderpath:
             label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
             label.pack()
+            self.filespaths_labels.append(label)
 
     def analyze(self):
         self.config['loader']['save_path'] = self.outpufolder
