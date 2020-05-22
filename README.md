@@ -68,10 +68,10 @@ Zbiór przydatnych stron, z których korzystano:
 
 ###### 5. 12 V - Prezentacja "gotowego" systemu
   - Patryk:
-    - [ ] Weryfikacja poprawności działania systemu pod kątem działania modułu detekcji.
-      - [ ] Weryfikacja prztwarzania danych o obrazach.
-      - [ ] Weryfikacja działania dostępnych modeli sieci neuronowych.
-      - [ ] Weryfikacja działania integralności wszystkich modeli z GUI.
+    - [x] Weryfikacja poprawności działania systemu pod kątem działania modułu detekcji.
+      - [x] Weryfikacja prztwarzania danych o obrazach.
+      - [x] Weryfikacja działania dostępnych modeli sieci neuronowych.
+      - [x] Weryfikacja działania integralności wszystkich modeli z GUI.
       
   - Mateusz:
     - [ ] Weryfikacja poprawności działania systemu pod kątem działania modułu importu.
