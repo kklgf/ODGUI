@@ -15,6 +15,7 @@ loader:
   labels: 'Tensorflow/models/research/object_detection/data/mscoco_label_map.pbtxt'
   save_path: 'results'
   extentions: '.jpg'
+
 threshold: 0.5
 show: True
 save: True

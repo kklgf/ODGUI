@@ -81,11 +81,16 @@ class GUI:
                                                   value='ssd_mobilenet_v1_coco_2018_01_28',
                                                   fg="#C4CBCC", bg="#263D42")
         self.radio_btn_network_1.pack()
-        self.radio_btn_network_1 = tk.Radiobutton(self.object_detection_frame, text='MobileNet v2',
+        self.radio_btn_network_2 = tk.Radiobutton(self.object_detection_frame, text='MobileNet v2',
                                                   variable=self.radio_btn_network_var,
                                                   value='ssdlite_mobilenet_v2_coco_2018_05_09',
                                                   fg="#C4CBCC", bg="#263D42")
-        self.radio_btn_network_1.pack()
+        self.radio_btn_network_2.pack()
+        self.radio_btn_network_3 = tk.Radiobutton(self.object_detection_frame, text='MobileNet v3 (mobile)',
+                                                  variable=self.radio_btn_network_var,
+                                                  value='ssd_mobilenet_v3_small_coco_2020_01_14',
+                                                  fg="#C4CBCC", bg="#263D42")
+        self.radio_btn_network_3.pack()
 
         # starter
         self.root.mainloop()
@@ -202,6 +207,9 @@ class GUI:
         radio_btn_jpeg = tk.Radiobutton(self.radio_btn_frame, text='.jpeg', variable=self.radio_btn_var,
                                         value='.jpeg', fg="#C4CBCC", bg="#263D42")
         radio_btn_jpeg.pack()
+        radio_btn_avi = tk.Radiobutton(self.radio_btn_frame, text='.avi', variable=self.radio_btn_var,
+                                        value='.avi', fg="#C4CBCC", bg="#263D42")
+        radio_btn_avi.pack()
 
     def destroy_input_children(self):
         for widget in self.radio_btn_frame.winfo_children():
@@ -216,7 +224,6 @@ class GUI:
             tk.Button(self.import_frame, text="Choose video", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self.choose_video)
         choosefiles_button.pack()
-
 
     def choose_video(self):
         self.folderpath = []

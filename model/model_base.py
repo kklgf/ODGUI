@@ -1,23 +1,8 @@
 from typing import Dict
-
-
-from PIL import Image
 from utils import *
 import os
-import subprocess
-import shlex
-import json
 import cv2
 
-
-def video_metadata(video_path):
-    cmd = "ffprobe -v quiet -print_format json -show_streams"
-    args = shlex.split(cmd)
-    args.append(video_path)
-    # run the ffprobe process, decode stdout into utf-8 & convert to JSON
-    ffprobeOutput = subprocess.check_output(args).decode('utf-8')
-    ffprobeOutput = json.loads(ffprobeOutput)
-    return ffprobeOutput['streams'][0]
 
 class Model:
     def __init__(self, config: Dict):
@@ -81,8 +66,8 @@ class Model:
             if ret == True:
                 detections = self.run_inference_one_image(frame)
                 img_boxes = self.process.add_detections_on_image(detections, frame, self.labels)
-                img = Image.fromarray(img_boxes, 'RGB')
-                out.write(cv2.UMat(img))
+                # img = Image.fromarray(img_boxes, 'RGB')
+                out.write(cv2.UMat(img_boxes))
             else:
                 break
         cap.release()
