@@ -99,4 +99,5 @@ class Model:
                 break
         cap.release()
         out.release()
+        cv2.destroyAllWindows()
         return video_out
