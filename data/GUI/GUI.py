@@ -18,13 +18,13 @@ class GUI:
     def __init__(self, config: Dict):
         self.config = config
         self.folderpath = []
-        self.filespaths = []
+        # self.filespaths = []
         self.outpufolder = 'results'
         self.root = tk.Tk()
         self.filespaths_labels = []
         # canvas
         self.canvas = tk.Canvas(self.root, width=900, height=500, bg="#263D42")
-        self.canvas.pack()
+        self.canvas.pack(fill="both", expand=True)
 
         # Frames
         # Import Frames
@@ -152,7 +152,7 @@ class GUI:
 
     def print_folder_import(self):
         self.destroy_input_children()
-        self.print_image_format_radiobutton()
+        self.print_image_format_radiobutton(False)
         choosefiles_button = \
             tk.Button(self.import_frame, text="Choose folder", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self.choose_folders)
@@ -161,7 +161,7 @@ class GUI:
     def update_folder_import_files(self):
         folder_importer = FolderImporter(in_path=self.folderpath[0])
         folder_importer.collect_images()
-        self.filespaths = folder_importer.filelist
+        # self.filespaths = folder_importer.filelist
 
     def print_camera_import(self):
         self.folderpath = [0]
@@ -169,7 +169,7 @@ class GUI:
 
     def print_webpage_import(self):
         self.destroy_input_children()
-        self.print_image_format_radiobutton()
+        self.print_image_format_radiobutton(True)
         tk.Label(self.import_frame, text="Provide  (http://)", bg="#263D42", fg="#C4CBCC").pack()
         web_adress = tk.Entry(self.import_frame)
         web_adress.pack()
@@ -184,21 +184,29 @@ class GUI:
         webpage_button_fotopathupdate.pack()
 
     def run_webpage_analyze(self, web_adress):
-        web_pi = WebPageImporter(web_adress.get())
-        web_pi.read_website()
-        self.folderpath.append(os.path.dirname(os.path.realpath(__file__)) + 'data/loader/webImport/')
+        self.folderpath = []
+        self.folderpath.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..' ,'loader/webImport'))
+        web_pi = WebPageImporter(self, web_adress.get())
+        try:
+            web_pi.read_website()
+        finally:
+            self.analyze()
 
-    def update_web_page_files(self):
-        folder_importer = FolderImporter("data/loader/webImport")
-        folder_importer.collect_images()
-        self.filespaths = folder_importer.filelist
+
+
+    # def update_web_page_files(self):
+    #     self.folderpath = []
+    #     self.folderpath.append(os.path.dirname(os.path.realpath(__file__)) + '/loader/webImport')
+    #     folder_importer = FolderImporter("/loader/webImport")
+    #     folder_importer.collect_images()
+    #     #self.filespaths = folder_importer.filelist
 
     def set_output_folder(self):
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
         self.outpufolder = foldername
         self.current_output_folder_label.config(text=foldername)
 
-    def print_image_format_radiobutton(self):
+    def print_image_format_radiobutton(self, video):
         for widget in self.radio_btn_frame.winfo_children():
             widget.destroy()
         radio_btn_jpg = tk.Radiobutton(self.radio_btn_frame, text='.jpg',
@@ -207,9 +215,10 @@ class GUI:
         radio_btn_jpeg = tk.Radiobutton(self.radio_btn_frame, text='.jpeg', variable=self.radio_btn_var,
                                         value='.jpeg', fg="#C4CBCC", bg="#263D42")
         radio_btn_jpeg.pack()
-        radio_btn_avi = tk.Radiobutton(self.radio_btn_frame, text='.avi', variable=self.radio_btn_var,
+        if video:
+            radio_btn_avi = tk.Radiobutton(self.radio_btn_frame, text='.avi', variable=self.radio_btn_var,
                                         value='.avi', fg="#C4CBCC", bg="#263D42")
-        radio_btn_avi.pack()
+            radio_btn_avi.pack()
 
     def destroy_input_children(self):
         for widget in self.radio_btn_frame.winfo_children():
@@ -219,7 +228,9 @@ class GUI:
 
     def print_video_import(self):
         self.destroy_input_children()
-        self.print_image_format_radiobutton()
+        radio_btn_avi = tk.Radiobutton(self.radio_btn_frame, text='.avi', variable=self.radio_btn_var,
+                                       value='.avi', fg="#C4CBCC", bg="#263D42")
+        radio_btn_avi.pack()
         choosefiles_button = \
             tk.Button(self.import_frame, text="Choose video", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self.choose_video)

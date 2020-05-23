@@ -7,12 +7,13 @@ from data.GUI.GUI import *
 
 
 class WebPageImporter:
-    def __init__(self, in_site):
-        #self.gui = , )
+    def __init__(self, gui, in_site):
+        self.gui = gui
         self.site = str(in_site)
         self.directory = os.path.dirname(os.path.realpath(__file__)) + '/webImport/'
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
+        # gui.folderpath[0] = self.directory
 
     # read website
     def read_website(self, in_site=None):
@@ -34,5 +35,5 @@ class WebPageImporter:
                     url = '{}{}'.format(self.site, url)
                 response = requests.get(url)
                 f.write(response.content)
-
+                print('ok')
         #self.gui.update_web_page_files()
