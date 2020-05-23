@@ -69,7 +69,7 @@ class Model:
                 # img = Image.fromarray(img_boxes, 'RGB')
                 out.write(cv2.UMat(img_boxes))
             else:
-                break
+               break
         cap.release()
         out.release()
         return video_out
