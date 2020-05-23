@@ -178,10 +178,6 @@ class GUI:
             tk.Button(self.import_frame, text="Analyze webpage", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=webpage_button_action)
         webpage_button.pack()
-        webpage_button_fotopathupdate = \
-            tk.Button(self.import_frame, text="Update fotopath", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                      command=self.update_web_page_files)
-        webpage_button_fotopathupdate.pack()
 
     def run_webpage_analyze(self, web_adress):
         self.folderpath = []
@@ -191,15 +187,6 @@ class GUI:
             web_pi.read_website()
         finally:
             self.analyze()
-
-
-
-    # def update_web_page_files(self):
-    #     self.folderpath = []
-    #     self.folderpath.append(os.path.dirname(os.path.realpath(__file__)) + '/loader/webImport')
-    #     folder_importer = FolderImporter("/loader/webImport")
-    #     folder_importer.collect_images()
-    #     #self.filespaths = folder_importer.filelist
 
     def set_output_folder(self):
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
