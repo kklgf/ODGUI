@@ -7,18 +7,17 @@ from data.GUI.GUI import *
 
 
 class WebPageImporter:
-    def __init__(self, gui, in_site):
+    def __init__(self, gui):
         self.gui = gui
-        self.site = str(in_site)
+        self.site = None
         self.directory = os.path.dirname(os.path.realpath(__file__)) + '/webImport/'
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
         # gui.folderpath[0] = self.directory
 
     # read website
-    def read_website(self, in_site=None):
-        if in_site is not None:
-            self.site = str(in_site)
+    def read_website(self, in_site: str) -> None:
+        self.site = str(in_site)
         driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
         driver.get(self.site)
         soup = BeautifulSoup(driver.page_source, 'html.parser')

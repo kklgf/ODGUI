@@ -91,11 +91,16 @@ class GUI:
                                                   value='ssd_mobilenet_v3_small_coco_2020_01_14',
                                                   fg="#C4CBCC", bg="#263D42")
         self.radio_btn_network_3.pack()
+        self.radio_btn_network_4 = tk.Radiobutton(self.object_detection_frame, text='resnet50 v1',
+                                                  variable=self.radio_btn_network_var,
+                                                  value='ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03',
+                                                  fg="#C4CBCC", bg="#263D42")
+        self.radio_btn_network_4.pack()
 
         # starter
         self.root.mainloop()
 
-    def choose_folders(self):
+    def choose_folders(self) -> None:
         self.folderpath = []
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
         self.folderpath.append(foldername)
@@ -106,7 +111,7 @@ class GUI:
             label.pack()
             self.filespaths_labels.append(label)
 
-    def analyze(self):
+    def analyze(self) -> None:
         self.config['loader']['save_path'] = self.outpufolder
         if self.threshold_entry.get():
             self.config['threshold'] = float(self.threshold_entry.get())
@@ -139,7 +144,7 @@ class GUI:
                 elif source.suffix in self.config['loader']['extentions']:
                     model.predict_img(str(source))
 
-    def callbackFunc(self, event):
+    def callbackFunc(self, event: tk.Event) -> None:
         el_number = self.choose_import.current()
         if el_number == 0:
             self.print_folder_import()
@@ -150,7 +155,7 @@ class GUI:
         elif el_number == 3:
             self.print_video_import()
 
-    def print_folder_import(self):
+    def print_folder_import(self) -> None:
         self.destroy_input_children()
         self.print_image_format_radiobutton(False)
         choosefiles_button = \
@@ -158,16 +163,16 @@ class GUI:
                       command=self.choose_folders)
         choosefiles_button.pack()
 
-    def update_folder_import_files(self):
+    def update_folder_import_files(self) -> None:
         folder_importer = FolderImporter(in_path=self.folderpath[0])
         folder_importer.collect_images()
         # self.filespaths = folder_importer.filelist
 
-    def print_camera_import(self):
+    def print_camera_import(self) -> None:
         self.folderpath = [0]
         self.destroy_input_children()
 
-    def print_webpage_import(self):
+    def print_webpage_import(self) -> None:
         self.destroy_input_children()
         self.print_image_format_radiobutton(True)
         tk.Label(self.import_frame, text="Provide  (http://)", bg="#263D42", fg="#C4CBCC").pack()
@@ -179,21 +184,21 @@ class GUI:
                       command=webpage_button_action)
         webpage_button.pack()
 
-    def run_webpage_analyze(self, web_adress):
+    def run_webpage_analyze(self, web_adress: tk.Entry) -> None:
         self.folderpath = []
-        self.folderpath.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..' ,'loader/webImport'))
-        web_pi = WebPageImporter(self, web_adress.get())
+        self.folderpath.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'loader/webImport'))
+        web_pi = WebPageImporter(self)
         try:
-            web_pi.read_website()
+            web_pi.read_website(web_adress.get())
         finally:
             self.analyze()
 
-    def set_output_folder(self):
+    def set_output_folder(self) -> None:
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
         self.outpufolder = foldername
         self.current_output_folder_label.config(text=foldername)
 
-    def print_image_format_radiobutton(self, video):
+    def print_image_format_radiobutton(self,video: bool) -> None:
         for widget in self.radio_btn_frame.winfo_children():
             widget.destroy()
         radio_btn_jpg = tk.Radiobutton(self.radio_btn_frame, text='.jpg',
@@ -204,16 +209,16 @@ class GUI:
         radio_btn_jpeg.pack()
         if video:
             radio_btn_avi = tk.Radiobutton(self.radio_btn_frame, text='.avi', variable=self.radio_btn_var,
-                                        value='.avi', fg="#C4CBCC", bg="#263D42")
+                                           value='.avi', fg="#C4CBCC", bg="#263D42")
             radio_btn_avi.pack()
 
-    def destroy_input_children(self):
+    def destroy_input_children(self) -> None:
         for widget in self.radio_btn_frame.winfo_children():
             widget.destroy()
         for widget in self.import_frame.winfo_children():
             widget.destroy()
 
-    def print_video_import(self):
+    def print_video_import(self) -> None:
         self.destroy_input_children()
         radio_btn_avi = tk.Radiobutton(self.radio_btn_frame, text='.avi', variable=self.radio_btn_var,
                                        value='.avi', fg="#C4CBCC", bg="#263D42")
@@ -223,9 +228,10 @@ class GUI:
                       command=self.choose_video)
         choosefiles_button.pack()
 
-    def choose_video(self):
+    def choose_video(self) -> None:
         self.folderpath = []
-        foldername = filedialog.askopenfilename(initialdir="/home/mateusz", title="Select video") #TODO only filepath
+        foldername = filedialog.askopenfilename(initialdir="/home/mateusz", title="Select video",
+                                                filetypes=[("Movies", '.avi')])
         self.folderpath.append(foldername)
         for label in self.filespaths_labels:
             label.destroy()
@@ -233,8 +239,6 @@ class GUI:
             label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
             label.pack()
             self.filespaths_labels.append(label)
-
-
 
     # def read_all_images():
     #     my_string = "'" + str(filelist[0]) + "'"
