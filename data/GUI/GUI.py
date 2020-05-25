@@ -132,7 +132,7 @@ class GUI:
             if source.is_dir():
                 for img_path in tqdm(source.rglob('**/*')):
                     if img_path.suffix in self.config['loader']['extentions']:
-                        detections = model.predict_img(str(img_path))
+                        model.predict_img(str(img_path))
             elif source.is_file():
                 if source.suffix == '.avi':
                     model.predict_video(str(source))

@@ -1,3 +1,4 @@
+from typing import Dict
 import tensorflow as tf
 import ntpath
 import subprocess
@@ -13,16 +14,26 @@ def get_frozen_graph(graph_file):
     return graph_def
 
 
-def video_metadata(video_path):
+def video_metadata(video_path) -> Dict:
+    """
+    @param video_path: path to video to get metadata from
+    @return: dict with metadata;
+                keys - properties names
+                values - values of properties
+    """
     cmd = "ffprobe -v quiet -print_format json -show_streams"
     args = shlex.split(cmd)
     args.append(video_path)
     # run the ffprobe process, decode stdout into utf-8 & convert to JSON
-    ffprobeOutput = subprocess.check_output(args).decode('utf-8')
-    ffprobeOutput = json.loads(ffprobeOutput)
-    return ffprobeOutput['streams'][0]
+    ffprobe_output = subprocess.check_output(args).decode('utf-8')
+    ffprobe_output = json.loads(ffprobe_output)
+    return ffprobe_output['streams'][0]
 
 
-def path_leaf(path):
+def path_leaf(path: str) -> str:
+    """
+    @param path: path
+    @return: leaf of that path
+    """
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
