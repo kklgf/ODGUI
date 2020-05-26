@@ -63,13 +63,13 @@ class GUI:
         self.choose_import_label.pack()
         self.choose_import = ttk.Combobox(self.choose_frame, values=["Folder", "Camera", "Webpage", "Video"])
         self.choose_import.pack()
-        self.choose_import.bind("<<ComboboxSelected>>", self.callbackFunc)
+        self.choose_import.bind("<<ComboboxSelected>>", self._callbackFunc)
         # Radiobutton .jpg/.jpeg
         self.radio_btn_var = tk.StringVar(value='.jpg')
 
         # Buttons
         analyze_button = tk.Button(self.object_detection_frame, text="Analyze!",
-                                   padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=self.analyze)
+                                   padx=10, pady=5, fg="#C4CBCC", bg="#263D42", command=self._analyze)
         analyze_button.pack()
         # Radiobutton neural network
         self.label_choose_network = tk.Label(self.object_detection_frame,
@@ -100,7 +100,12 @@ class GUI:
         # starter
         self.root.mainloop()
 
-    def choose_folders(self) -> None:
+    def _choose_folders(self) -> None:
+        """
+        Shows popup window to choose folder to import
+        and sets it as an active one
+        :return:
+        """
         self.folderpath = []
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
         self.folderpath.append(foldername)
@@ -111,7 +116,11 @@ class GUI:
             label.pack()
             self.filespaths_labels.append(label)
 
-    def analyze(self) -> None:
+    def _analyze(self) -> None:
+        """
+        Sets config for neural network
+        :return: None
+        """
         self.config['loader']['save_path'] = self.outpufolder
         if self.threshold_entry.get():
             self.config['threshold'] = float(self.threshold_entry.get())
@@ -144,7 +153,7 @@ class GUI:
                 elif source.suffix in self.config['loader']['extentions']:
                     model.predict_img(str(source))
 
-    def callbackFunc(self, event: tk.Event) -> None:
+    def _callbackFunc(self, event: tk.Event) -> None:
         el_number = self.choose_import.current()
         if el_number == 0:
             self.print_folder_import()
@@ -160,7 +169,7 @@ class GUI:
         self.print_image_format_radiobutton(False)
         choosefiles_button = \
             tk.Button(self.import_frame, text="Choose folder", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                      command=self.choose_folders)
+                      command=self._choose_folders)
         choosefiles_button.pack()
 
     def update_folder_import_files(self) -> None:
@@ -191,7 +200,7 @@ class GUI:
         try:
             web_pi.read_website(web_adress.get())
         finally:
-            self.analyze()
+            self._analyze()
 
     def set_output_folder(self) -> None:
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
