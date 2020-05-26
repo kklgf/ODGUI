@@ -3,7 +3,6 @@ from tkinter import ttk
 from tkinter import filedialog
 from data.loader.FolderImporter import *
 from data.loader.WebPageImporter import *
-from data.loader.CameraImporter import *
 from data.loader.loader_base import *
 from functools import partial
 from typing import Dict
@@ -55,7 +54,7 @@ class GUI:
         self.current_output_folder_label.pack()
         set_output_folder_button = tk.Button(self.threshold_frame, text="Choose result folder!",
                                              padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                                             command=self.set_output_folder)
+                                             command=self._set_output_folder)
         set_output_folder_button.pack()
 
         # combobox
@@ -100,22 +99,6 @@ class GUI:
         # starter
         self.root.mainloop()
 
-    def _choose_folders(self) -> None:
-        """
-        Shows popup window to choose folder to import
-        and sets it as an active one
-        :return:
-        """
-        self.folderpath = []
-        foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
-        self.folderpath.append(foldername)
-        for label in self.filespaths_labels:
-            label.destroy()
-        for filepath in self.folderpath:
-            label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
-            label.pack()
-            self.filespaths_labels.append(label)
-
     def _analyze(self) -> None:
         """
         Sets config for neural network
@@ -156,44 +139,62 @@ class GUI:
     def _callbackFunc(self, event: tk.Event) -> None:
         el_number = self.choose_import.current()
         if el_number == 0:
-            self.print_folder_import()
+            self._print_folder_import()
         elif el_number == 1:
-            self.print_camera_import()
+            self._print_camera_import()
         elif el_number == 2:
-            self.print_webpage_import()
+            self._print_webpage_import()
         elif el_number == 3:
-            self.print_video_import()
+            self._print_video_import()
 
-    def print_folder_import(self) -> None:
-        self.destroy_input_children()
+    def _choose_folders(self) -> None:
+        """
+        Shows popup window to choose folder to import
+        and sets it as an active one
+        :return:
+        """
+        self.folderpath = []
+        foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
+        self.folderpath.append(foldername)
+        for label in self.filespaths_labels:
+            label.destroy()
+        for filepath in self.folderpath:
+            label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
+            label.pack()
+            self.filespaths_labels.append(label)
+
+    def _print_folder_import(self) -> None:
+        """
+        Prints folder import GUI
+        """
+        self._destroy_input_children()
         self.print_image_format_radiobutton(False)
         choosefiles_button = \
             tk.Button(self.import_frame, text="Choose folder", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self._choose_folders)
         choosefiles_button.pack()
 
-    def update_folder_import_files(self) -> None:
+    def _update_folder_import_files(self) -> None:
         folder_importer = FolderImporter(in_path=self.folderpath[0])
         folder_importer.collect_images()
-        # self.filespaths = folder_importer.filelist
 
-    def print_camera_import(self) -> None:
+    def _print_camera_import(self) -> None:
         self.folderpath = [0]
-        self.destroy_input_children()
+        self._destroy_input_children()
 
-    def print_webpage_import(self) -> None:
-        self.destroy_input_children()
+    def _print_webpage_import(self) -> None:
+        self._destroy_input_children()
         self.print_image_format_radiobutton(True)
         tk.Label(self.import_frame, text="Provide  (http://)", bg="#263D42", fg="#C4CBCC").pack()
         web_adress = tk.Entry(self.import_frame)
         web_adress.pack()
-        webpage_button_action = partial(self.run_webpage_analyze, web_adress)
+        webpage_button_action = partial(self._run_webpage_analyze, web_adress)
         webpage_button = \
             tk.Button(self.import_frame, text="Analyze webpage", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=webpage_button_action)
         webpage_button.pack()
 
-    def run_webpage_analyze(self, web_adress: tk.Entry) -> None:
+    def _run_webpage_analyze(self, web_adress: tk.Entry) -> None:
         self.folderpath = []
         self.folderpath.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'loader/webImport'))
         web_pi = WebPageImporter(self)
@@ -202,7 +203,7 @@ class GUI:
         finally:
             self._analyze()
 
-    def set_output_folder(self) -> None:
+    def _set_output_folder(self) -> None:
         foldername = filedialog.askdirectory(initialdir="/home/", title="Select one folder!")
         self.outpufolder = foldername
         self.current_output_folder_label.config(text=foldername)
@@ -221,23 +222,24 @@ class GUI:
                                            value='.avi', fg="#C4CBCC", bg="#263D42")
             radio_btn_avi.pack()
 
-    def destroy_input_children(self) -> None:
+    def _destroy_input_children(self) -> None:
         for widget in self.radio_btn_frame.winfo_children():
             widget.destroy()
         for widget in self.import_frame.winfo_children():
             widget.destroy()
 
-    def print_video_import(self) -> None:
-        self.destroy_input_children()
+    def _print_video_import(self) -> None:
+        self._destroy_input_children()
         radio_btn_avi = tk.Radiobutton(self.radio_btn_frame, text='.avi', variable=self.radio_btn_var,
                                        value='.avi', fg="#C4CBCC", bg="#263D42")
         radio_btn_avi.pack()
         choosefiles_button = \
             tk.Button(self.import_frame, text="Choose video", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
-                      command=self.choose_video)
+                      command=self._choose_video)
         choosefiles_button.pack()
 
-    def choose_video(self) -> None:
+    def _choose_video(self) -> None:
+
         self.folderpath = []
         foldername = filedialog.askopenfilename(initialdir="/home/mateusz", title="Select video",
                                                 filetypes=[("Movies", '.avi')])
@@ -248,12 +250,3 @@ class GUI:
             label = tk.Label(self.import_frame, text=filepath, fg="#C4CBCC", bg="#2A3538")
             label.pack()
             self.filespaths_labels.append(label)
-
-    # def read_all_images():
-    #     my_string = "'" + str(filelist[0]) + "'"
-    #     imgs = []
-    #     path = my_string;
-    #     # valid_images = [".jpg", ".gif", ".png", ".tga"]
-    #     for f in os.listdir(path):
-    #         ext = os.path.splitext(f)[1]
-    #         imgs.append(Image.open(os.path.join(path, f)))
