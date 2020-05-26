@@ -62,8 +62,8 @@ Zbiór przydatnych stron, z których korzystano:
   - Mateusz:
     - [ ] Implementacja modułu importującego obrazy z adresu internetowego
       - [x] Przeszukiwanie strony internetowej w poszukiwanie obrazów 
-      - [ ] Przekształcenie obrazów do odpowiedniej rozdzialczości
-      - [ ] Weryfikacja poprawności importu
+      - [x] Przekształcenie obrazów do odpowiedniej rozdzialczości
+      - [x] Weryfikacja poprawności importu
       - [x] Integracja z GUI
 
 ###### 5. 12 V - Prezentacja "gotowego" systemu
@@ -74,9 +74,9 @@ Zbiór przydatnych stron, z których korzystano:
       - [x] Weryfikacja działania integralności wszystkich modeli z GUI.
       
   - Mateusz:
-    - [ ] Weryfikacja poprawności działania systemu pod kątem działania modułu importu.
-      - [ ] Weryfikacjia działania importu z ścieżki, kamery, adresu internetowego
-      - [ ] Weryfikacja integralności wszystkich modułów importu z GUI
+    - [x] Weryfikacja poprawności działania systemu pod kątem działania modułu importu.
+      - [x] Weryfikacjia działania importu z ścieżki, kamery, adresu internetowego
+      - [x] Weryfikacja integralności wszystkich modułów importu z GUI
     
 
 ###### 6. 26 V - Oddanie projektu, podsumowanie
