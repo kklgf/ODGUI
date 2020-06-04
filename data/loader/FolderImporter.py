@@ -4,13 +4,14 @@ from tkinter import filedialog
 
 
 class FolderImporter:
+    """
+    Responsible for photo resize
+    """
     def __init__(self, in_path="webImport"):
         self.path = in_path + '/'
         self.filelist = []
         self.dirs = os.listdir(in_path)
 
-    # script_path = os.path.dirname(os.path.realpath(__file__))
-    # path = os.path.join(script_path, "webImport/")
 
     def collect_images(self):
         for item in self.dirs:
@@ -18,6 +19,10 @@ class FolderImporter:
             self.filelist.append(self.path + item)
 
     def resize(self):
+        """
+        change size of photos
+        :return:
+        """
         for item in self.dirs:
             # if os.path.isfile(path+item):
             print(self.path + item)

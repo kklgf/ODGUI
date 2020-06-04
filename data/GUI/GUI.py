@@ -106,6 +106,8 @@ class GUI:
         """
         self.config['loader']['save_path'] = self.outpufolder
         if self.threshold_entry.get():
+            if float(self.threshold_entry.get()) > 1.0 or float(self.threshold_entry.get()) < 0.0:
+                raise ValueError('Treshold value should be in range 0.0 and 1.0')
             self.config['threshold'] = float(self.threshold_entry.get())
         self.config['loader']['img_path'] = self.folderpath[0]
         self.config['loader']['extentions'] = self.radio_btn_var.get()
@@ -137,6 +139,11 @@ class GUI:
                     model.predict_img(str(source))
 
     def _callbackFunc(self, event: tk.Event) -> None:
+        """
+        callback for import method combobox
+        :param event:
+        :return:
+        """
         el_number = self.choose_import.current()
         if el_number == 0:
             self._print_folder_import()
@@ -168,7 +175,7 @@ class GUI:
         Prints folder import GUI
         """
         self._destroy_input_children()
-        self.print_image_format_radiobutton(False)
+        self._print_image_format_radiobutton(False)
         choosefiles_button = \
             tk.Button(self.import_frame, text="Choose folder", padx=10, pady=5, fg="#C4CBCC", bg="#263D42",
                       command=self._choose_folders)
@@ -184,7 +191,7 @@ class GUI:
 
     def _print_webpage_import(self) -> None:
         self._destroy_input_children()
-        self.print_image_format_radiobutton(True)
+        self._print_image_format_radiobutton(False)
         tk.Label(self.import_frame, text="Provide  (http://)", bg="#263D42", fg="#C4CBCC").pack()
         web_adress = tk.Entry(self.import_frame)
         web_adress.pack()
@@ -208,7 +215,11 @@ class GUI:
         self.outpufolder = foldername
         self.current_output_folder_label.config(text=foldername)
 
-    def print_image_format_radiobutton(self,video: bool) -> None:
+    def _print_image_format_radiobutton(self, video: bool) -> None:
+        """
+        :param video: if true prints video formats
+        :return: None
+        """
         for widget in self.radio_btn_frame.winfo_children():
             widget.destroy()
         radio_btn_jpg = tk.Radiobutton(self.radio_btn_frame, text='.jpg',
@@ -239,7 +250,10 @@ class GUI:
         choosefiles_button.pack()
 
     def _choose_video(self) -> None:
-
+        """
+        shows window to choose video to import
+        :return:
+        """
         self.folderpath = []
         foldername = filedialog.askopenfilename(initialdir="/home/mateusz", title="Select video",
                                                 filetypes=[("Movies", '.avi')])

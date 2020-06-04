@@ -48,9 +48,9 @@ Zbiór przydatnych stron, z których korzystano:
       - [x] Weryfikacja poprawności zrealizowanej integracji.
       
   - Mateusz:
-    - [ ] Implementacja modułu importującego obraz z kamery
+    - [x] Implementacja modułu importującego obraz z kamery
       - [x] Przetwarzenie obrazu z kamery do odpowiedniej rozdzielczości i częstości odświeżania
-      - [ ] Weryfikacja poprawności importu
+      - [x] Weryfikacja poprawności importu
 
 ###### 4. 28 IV - Przedstawienie postępów, problemów, ciekawostek
   - Patryk:
@@ -60,7 +60,7 @@ Zbiór przydatnych stron, z których korzystano:
       - [x] Dodanie systemu przetwarzania obrazu dla każdego modelu.
       
   - Mateusz:
-    - [ ] Implementacja modułu importującego obrazy z adresu internetowego
+    - [x] Implementacja modułu importującego obrazy z adresu internetowego
       - [x] Przeszukiwanie strony internetowej w poszukiwanie obrazów 
       - [x] Przekształcenie obrazów do odpowiedniej rozdzialczości
       - [x] Weryfikacja poprawności importu
@@ -81,7 +81,7 @@ Zbiór przydatnych stron, z których korzystano:
 
 ###### 6. 26 V - Oddanie projektu, podsumowanie
   - Patryk:
-    - [ ] Zastosowanie uwag otrzymacyh podczas wstępnej prezentacji rozwiązania.
+    - [x] Zastosowanie uwag otrzymacyh podczas wstępnej prezentacji rozwiązania.
     
   - Mateusz:
-    - [ ] Zastosowanie uwag otrzymacyh podczas wstępnej prezentacji rozwiązania.
+    - [x] Zastosowanie uwag otrzymacyh podczas wstępnej prezentacji rozwiązania.
