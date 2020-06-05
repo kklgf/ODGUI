@@ -17,7 +17,6 @@ class GUI:
     def __init__(self, config: Dict):
         self.config = config
         self.folderpath = []
-        # self.filespaths = []
         self.outpufolder = 'results'
         self.root = tk.Tk()
         self.filespaths_labels = []
